@@ -7,9 +7,23 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+enum UserRole {
+  STUDENT
+  INSTRUCTOR
+}
+
 model User {
-  id     Int      @id @default(autoincrement())
-  email  String   @unique
-  name   String?
-  // Adicione outros campos do modelo aqui, se necessário.
+  id       Int      @id @default(autoincrement())
+  email    String   @unique
+  name     String
+  password String
+  role     UserRole @default(STUDENT)
+  teams   Team[]
+}
+
+model Team {
+  id    Int    @id @default(autoincrement())
+  time  String
+  day   String
+  users User[]
 }
