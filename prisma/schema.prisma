@@ -7,23 +7,50 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-enum UserRole {
+enum Role {
   STUDENT
   INSTRUCTOR
+  RULER
 }
 
 model User {
-  id       Int      @id @default(autoincrement())
-  email    String   @unique
-  name     String
-  password String
-  role     UserRole @default(STUDENT)
-  teams   Team[]
+  id         Int          @id @default(autoincrement())
+  email      String       @unique
+  name       String
+  password   String
+  role       Role         @default(STUDENT)
+  groups     Group[]
+  Instructor Instructor[]
+
+  @@map("users")
 }
 
-model Team {
-  id    Int    @id @default(autoincrement())
-  time  String
-  day   String
-  users User[]
+model Instructor {
+  id      Int      @id @default(autoincrement())
+  user    User     @relation(fields: [userId], references: [id])
+  userId  Int      @unique
+  courses Course[]
+
+  @@map("instructors")
+}
+
+model Group {
+  user         User       @relation(fields: [userId], references: [id])
+  userId       Int
+  course       Course     @relation(fields: [courseId], references: [id])
+  courseId     Int        @map("course_id")
+
+  @@id([courseId])
+  @@map("groups")
+}
+
+model Course {
+  id           Int         @id @default(autoincrement())
+  course       String
+  timetable    String
+  groups       Group[]
+  Instructor   Instructor? @relation(fields: [instructorId], references: [id])
+  instructorId Int?
+
+  @@map("courses")
 }
