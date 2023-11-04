@@ -7,6 +7,7 @@ import {
   Param,
   Post,
   Put,
+  UseGuards,
   UsePipes,
 } from '@nestjs/common'
 import {
@@ -15,10 +16,15 @@ import {
   userBodySchema,
 } from 'src/zod.validation'
 import { PrismaService } from '../prima.service'
+import { JwtAuthGuard, RolesGuard } from 'src/jwt/jwt.guard'
+import { Role } from '@prisma/client'
+import { Roles } from 'src/jwt/roles.decorator'
 
+@Roles(...[Role.INSTRUCTOR])
+@UseGuards(JwtAuthGuard, RolesGuard)
 @Controller('/users')
 export class UserController {
-  constructor(private prisma: PrismaService) {}
+  constructor(private prisma: PrismaService) { }
 
   @Post()
   @UsePipes(new ZodValidationPipe(userBodySchema))

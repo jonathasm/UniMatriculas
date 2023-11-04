@@ -9,7 +9,21 @@ export const userBodySchema = z.object({
   role: z.enum(['STUDENT', 'INSTRUCTOR', 'RULER']),
 })
 
+export const registerBodyTypeSchema = z.object({
+  name: z.string(),
+  email: z.string().email(),
+  password: z.string(),
+  confirmPassword: z.string(),
+})
+
+export const loginBodyTypeSchema = z.object({
+  email: z.string().email(),
+  password: z.string(),
+})
+
 export type UserBodyTypeSchema = z.infer<typeof userBodySchema>
+export type RegisterBodyTypeSchema = z.infer<typeof registerBodyTypeSchema>
+export type LoginBodyTypeSchema = z.infer<typeof loginBodyTypeSchema>
 
 export class ZodValidationPipe implements PipeTransform {
   constructor(private schema: ZodSchema) {}
