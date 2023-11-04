@@ -7,9 +7,19 @@ import { PrismaService } from './prima.service'
 import { AuthController } from './controllers/auth.controller'
 import { ConflictExceptionFilter } from './exception.filter'
 import { APP_FILTER } from '@nestjs/core'
+import { PassportModule } from '@nestjs/passport'
+import { JwtModule } from '@nestjs/jwt'
+import { JwtStrategy } from './jwt/jwt.strategy'
+import { JwtService } from './jwt/jwt.service'
+import { JwtAuthGuard, RolesGuard } from './jwt/jwt.guard'
 
 @Module({
-  imports: [],
+  imports: [
+    PassportModule,
+    JwtModule.register({
+      secret: process.env.JWT_SECRET_KEY,
+    }),
+  ],
   controllers: [
     AuthController,
     UserController,
@@ -17,9 +27,16 @@ import { APP_FILTER } from '@nestjs/core'
     GroupController,
     InstructorController,
   ],
-  providers: [PrismaService, {
-    provide: APP_FILTER,
-    useClass: ConflictExceptionFilter,
-  }],
+  providers: [
+    PrismaService,
+    JwtStrategy,
+    {
+      provide: APP_FILTER,
+      useClass: ConflictExceptionFilter,
+    },
+    JwtService,
+    JwtAuthGuard,
+    RolesGuard,
+  ],
 })
 export class AppModule { }

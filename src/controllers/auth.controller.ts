@@ -16,11 +16,15 @@ import {
 import { PrismaService } from '../prima.service'
 import * as bcrypt from 'bcrypt'
 import { ConflictExceptionFilter } from 'src/exception.filter'
+import { JwtService } from 'src/jwt/jwt.service'
 
 @Controller('/auth')
 @UseFilters(ConflictExceptionFilter)
 export class AuthController {
-  constructor(private prisma: PrismaService) { }
+  constructor(
+    private prisma: PrismaService,
+    private jwtService: JwtService,
+  ) { }
 
   @Post('/register')
   @UsePipes(new ZodValidationPipe(registerBodyTypeSchema))
@@ -53,9 +57,10 @@ export class AuthController {
     const { email, password } = data
 
     const user = await this.findUser(email, password)
-    return user
-  }
+    const token = await this.jwtService.generateToken(user)
 
+    return { accessToken: token }
+  }
 
   validateSameEmail = async (email: string) => {
     const userWithSameEmail = await this.prisma.user.findUnique({
@@ -65,7 +70,9 @@ export class AuthController {
     })
 
     if (userWithSameEmail) {
-      throw new ConflictException('User with same e-mail address already exists.')
+      throw new ConflictException(
+        'User with same e-mail address already exists.',
+      )
     }
   }
 
@@ -92,6 +99,6 @@ export class AuthController {
       throw new ConflictException('Email or password may be wrong.')
     }
 
-    return { token: 'token' }
+    return user
   }
 }

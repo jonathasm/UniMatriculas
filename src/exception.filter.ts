@@ -4,18 +4,18 @@ import {
   ArgumentsHost,
   HttpStatus,
   ConflictException,
-} from '@nestjs/common';
-import { Response } from 'express';
+} from '@nestjs/common'
+import { Response } from 'express'
 
 @Catch(ConflictException) // Replace with the appropriate exception class
 export class ConflictExceptionFilter implements ExceptionFilter {
   catch(exception: ConflictException, host: ArgumentsHost) {
-    const ctx = host.switchToHttp();
-    const response = ctx.getResponse<Response>();
+    const ctx = host.switchToHttp()
+    const response = ctx.getResponse<Response>()
 
     response.status(HttpStatus.CONFLICT).json({
       statusCode: HttpStatus.CONFLICT,
       message: exception.message,
-    });
+    })
   }
 }
