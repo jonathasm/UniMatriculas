@@ -16,9 +16,9 @@ import {
   userBodySchema,
 } from 'src/zod.validation'
 import { PrismaService } from '../prima.service'
-import { JwtAuthGuard, RolesGuard } from 'src/jwt/jwt.guard'
+import { JwtAuthGuard, RolesGuard } from 'src/auth/jwt/jwt.guard'
 import { Role } from '@prisma/client'
-import { Roles } from 'src/jwt/roles.decorator'
+import { Roles } from 'src/auth/jwt/roles.decorator'
 
 @Roles(...[Role.INSTRUCTOR])
 @UseGuards(JwtAuthGuard, RolesGuard)
