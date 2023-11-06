@@ -1,34 +1,17 @@
-import {
-  Body,
-  ConflictException,
-  Controller,
-  Post,
-  UseFilters,
-  UsePipes,
-} from '@nestjs/common'
-import {
-  LoginBodyTypeSchema,
-  RegisterBodyTypeSchema,
-  ZodValidationPipe,
-  loginBodyTypeSchema,
-  registerBodyTypeSchema,
-} from 'src/zod.validation'
-import { PrismaService } from '../prima.service'
-import * as bcrypt from 'bcrypt'
-import { ConflictExceptionFilter } from 'src/exception.filter'
-import { JwtService } from 'src/jwt/jwt.service'
+import { ConflictException, Injectable } from '@nestjs/common';
+import { PrismaService } from 'src/prima.service';
+import { LoginBodyTypeSchema, RegisterBodyTypeSchema } from 'src/zod.validation';
+import * as bcrypt from 'bcrypt';
+import { JwtService } from 'src/auth/jwt/jwt.service';
 
-@Controller('/auth')
-@UseFilters(ConflictExceptionFilter)
-export class AuthController {
+@Injectable()
+export class AuthService {
   constructor(
     private prisma: PrismaService,
-    private jwtService: JwtService,
+    private jwtService: JwtService
   ) { }
 
-  @Post('/register')
-  @UsePipes(new ZodValidationPipe(registerBodyTypeSchema))
-  async create(@Body() data: RegisterBodyTypeSchema) {
+  async register(data: RegisterBodyTypeSchema) {
     const { name, email, password, confirmPassword } = data
 
     await this.validateSameEmail(email)
@@ -51,9 +34,7 @@ export class AuthController {
     }
   }
 
-  @Post('/login')
-  @UsePipes(new ZodValidationPipe(loginBodyTypeSchema))
-  async login(@Body() data: LoginBodyTypeSchema) {
+  async login(data: LoginBodyTypeSchema) {
     const { email, password } = data
 
     const user = await this.findUser(email, password)
