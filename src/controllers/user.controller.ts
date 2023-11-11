@@ -24,7 +24,7 @@ import { Roles } from 'src/auth/jwt/roles.decorator'
 @UseGuards(JwtAuthGuard, RolesGuard)
 @Controller('/users')
 export class UserController {
-  constructor(private prisma: PrismaService) { }
+  constructor(private prisma: PrismaService) {}
 
   @Post()
   @UsePipes(new ZodValidationPipe(userBodySchema))
