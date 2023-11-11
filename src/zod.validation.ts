@@ -16,11 +16,16 @@ export const registerBodyTypeSchema = z.object({
   confirmPassword: z.string(),
 })
 
+export const instructorBodySchema = z.object({
+  userId: z.number(),
+})
+
 export const loginBodyTypeSchema = z.object({
   email: z.string().email(),
   password: z.string(),
 })
 
+export type InstructorBodyTypeSchema = z.infer<typeof instructorBodySchema>
 export type UserBodyTypeSchema = z.infer<typeof userBodySchema>
 export type RegisterBodyTypeSchema = z.infer<typeof registerBodyTypeSchema>
 export type LoginBodyTypeSchema = z.infer<typeof loginBodyTypeSchema>
