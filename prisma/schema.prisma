@@ -40,7 +40,8 @@ model Group {
   course       Course     @relation(fields: [courseId], references: [id])
   courseId     Int        @map("course_id")
 
-  @@id([courseId])
+  @@id([userId, courseId])
+  @@unique([userId, courseId])
   @@map("groups")
 }
 
