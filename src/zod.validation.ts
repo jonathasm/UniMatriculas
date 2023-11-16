@@ -18,9 +18,15 @@ export const loginBodyTypeSchema = z.object({
   password: z.string(),
 })
 
+export const courseBodyTypeSchema = z.object({
+  course: z.string(),
+  timetable: z.string().length(2),
+})
+
 export type InstructorBodyTypeSchema = z.infer<typeof instructorBodySchema>
 export type RegisterBodyTypeSchema = z.infer<typeof registerBodyTypeSchema>
 export type LoginBodyTypeSchema = z.infer<typeof loginBodyTypeSchema>
+export type CourseBodyTypeSchema = z.infer<typeof courseBodyTypeSchema>
 
 export class ZodValidationPipe implements PipeTransform {
   constructor(private schema: ZodSchema) {}
