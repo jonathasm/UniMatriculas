@@ -15,4 +15,16 @@ export class JwtService {
 
     return null
   }
+
+  async decodeToken(token: string) {
+    try {
+      const secretKey: string = process.env.JWT_SECRET_KEY || 'secret'
+      const decodedToken = jwt.verify(token, secretKey)
+
+      return decodedToken
+    } catch (error) {
+      console.error('JWT decoding error:', error)
+      return null
+    }
+  }
 }

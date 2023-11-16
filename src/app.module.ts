@@ -5,6 +5,7 @@ import { InstructorController } from './controllers/instructor.controller'
 import { UserController } from './controllers/user.controller'
 import { PrismaService } from './prima.service'
 import { AuthModule } from './auth/auth.module'
+import { JwtService } from './auth/jwt/jwt.service'
 
 @Module({
   imports: [AuthModule],
@@ -14,6 +15,6 @@ import { AuthModule } from './auth/auth.module'
     GroupController,
     InstructorController,
   ],
-  providers: [PrismaService],
+  providers: [PrismaService, JwtService],
 })
 export class AppModule {}
