@@ -3,6 +3,7 @@
   "rules": {
     "no-useless-constructor": "off",
     "no-new": "off",
-    "object-curly-spacing": ["off"]
+    "object-curly-spacing": ["off"],
+    "@typescript-eslint/no-explicit-any": "off"
   }
 }

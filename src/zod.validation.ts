@@ -2,13 +2,6 @@ import { BadRequestException, PipeTransform } from '@nestjs/common'
 import { ZodError, ZodSchema, z } from 'zod'
 import { fromZodError } from 'zod-validation-error'
 
-export const userBodySchema = z.object({
-  email: z.string().email(),
-  name: z.string(),
-  password: z.string(),
-  role: z.enum(['STUDENT', 'INSTRUCTOR', 'RULER']),
-})
-
 export const registerBodyTypeSchema = z.object({
   name: z.string(),
   email: z.string().email(),
@@ -26,7 +19,6 @@ export const loginBodyTypeSchema = z.object({
 })
 
 export type InstructorBodyTypeSchema = z.infer<typeof instructorBodySchema>
-export type UserBodyTypeSchema = z.infer<typeof userBodySchema>
 export type RegisterBodyTypeSchema = z.infer<typeof registerBodyTypeSchema>
 export type LoginBodyTypeSchema = z.infer<typeof loginBodyTypeSchema>
 

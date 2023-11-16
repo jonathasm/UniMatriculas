@@ -9,17 +9,17 @@ import {
   UseGuards,
   UsePipes,
 } from '@nestjs/common'
-import { PrismaService } from 'src/prima.service'
+import { Role } from '@prisma/client'
 import { JwtAuthGuard, RolesGuard } from 'src/auth/jwt/jwt.guard'
 import { Roles } from 'src/auth/jwt/roles.decorator'
+import { PrismaService } from 'src/prima.service'
 import {
   InstructorBodyTypeSchema,
   ZodValidationPipe,
   instructorBodySchema,
 } from 'src/zod.validation'
-import { Role } from '@prisma/client'
 
-@Roles(Role.INSTRUCTOR)
+@Roles(Role.INSTRUCTOR, Role.RULER)
 @UseGuards(JwtAuthGuard, RolesGuard)
 @Controller('instructors')
 export class InstructorController {
