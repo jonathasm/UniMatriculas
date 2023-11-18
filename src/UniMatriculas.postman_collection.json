@@ -16,7 +16,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"name\": \"Second Registered User\",\r\n    \"email\": \"second@unisinos.com\",\r\n    \"password\": \"Pass123\",\r\n    \"confirmPassword\": \"Pass123\"\r\n}",
+							"raw": "{\r\n    \"name\": \"admin\",\r\n    \"email\": \"admin@unisinos.com\",\r\n    \"password\": \"Admin\",\r\n    \"confirmPassword\": \"Admin\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -45,7 +45,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"email\": \"first@unisinos.com\",\r\n    \"password\": \"Pass123\"\r\n}",
+							"raw": "{\r\n    \"email\": \"admin@unisinos.com\",\r\n    \"password\": \"Admin\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -75,6 +75,16 @@
 				{
 					"name": "GetAll",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjUsImVtYWlsIjoiZ3VzdGF2b0B1bmlzaW5vcy5jb20iLCJyb2xlcyI6IlNUVURFTlQiLCJpYXQiOjE2OTk4MTQzMDksImV4cCI6MTY5OTgzNTkwOX0.1GjowNfulUKkQ92XMHMuFUCaLsOJNL_iSRamX8a_VYo",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
 						"header": [],
 						"url": {
@@ -92,6 +102,208 @@
 					"response": []
 				}
 			]
+		},
+		{
+			"name": "Courses",
+			"item": [
+				{
+					"name": "GetAll",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/courses",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"courses"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetOne",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/courses/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"courses",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"course\": \"Programação 2\",\r\n    \"timetable\": \"32\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/courses/create",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"courses",
+								"create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/courses/delete/3",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"courses",
+								"delete",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetStudents",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjUsImVtYWlsIjoiZ3VzdGF2b0B1bmlzaW5vcy5jb20iLCJyb2xlcyI6IlNUVURFTlQiLCJpYXQiOjE2OTk4MTQzMDksImV4cCI6MTY5OTgzNTkwOX0.1GjowNfulUKkQ92XMHMuFUCaLsOJNL_iSRamX8a_VYo",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/users/1/students",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"users",
+								"1",
+								"students"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Groups",
+			"item": [
+				{
+					"name": "[STD] Enroll",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/groups/enroll/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"groups",
+								"enroll",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "[STD] Dropout",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/groups/dropout/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"groups",
+								"dropout",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjMsImVtYWlsIjoiYWRtaW5AdW5pc2lub3MuY29tIiwicm9sZXMiOiJSVUxFUiIsImlhdCI6MTcwMDI2Nzk5OSwiZXhwIjoxNzAwMjg5NTk5fQ.-BJ_VYOXlq9m-obachLFo65ULraPaRe6hQov1YgN6ak",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
 		}
 	]
 }
